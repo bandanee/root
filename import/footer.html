@@ -1,1 +1,59 @@
 
+<footer class="border-top mt-5 pt-5 pb-4 bg-light">
+  <div class="container">
+
+    <div class="row justify-content-center">
+
+      <!-- Başlık -->
+      <div class="col-12 text-center mb-4">
+        <div class="fw-bold fs-4">bandanee</div>
+        <div class="text-muted small">
+          İletişim & Sosyal Kanallar
+        </div>
+      </div>
+
+      <!-- İletişim Formu -->
+      <div class="col-md-6 mb-4">
+        <form id="contactForm" class="card card-body shadow-sm">
+
+          <div class="mb-3">
+            <label class="form-label">Adınız</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Mesajınız</label>
+            <textarea class="form-control" id="message" rows="4" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-success w-100">
+            WhatsApp ile Gönder
+          </button>
+
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Alt bilgi -->
+    <div class="text-center text-muted small mt-4">
+      © 2026 bandanee • Tüm hakları saklıdır
+    </div>
+
+  </div>
+</footer>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  const text = encodeURIComponent(
+    "Ad: " + name + "\n\nMesaj:\n" + message
+  );
+
+  window.open("https://wa.me/905362279390?text=" + text, "_blank");
+});
+</script>
