@@ -1,1 +1,47 @@
 
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Dijital İçerik Üretimi – Web, Video ve Multimedya Üretim Platformu</title>
+<meta name="description" content="bandanee ile dijital içerik üretimi, SEO optimizasyonu, blog ve web içerikleri, video ve multimedya projeleri, interaktif uygulamalar ve portföy geliştirme">
+<meta name="keywords" content="dijital içerik, içerik üretimi, SEO, blog, web tasarım, video üretimi, multimedya, interaktif içerik, proje tabanlı eğitim, portföy geliştirme, bandanee, root platform">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- ek_head.html fetch -->
+<script>
+fetch("https://bandanee.github.io/root/import/head.html")
+  .then(r => r.text())
+  .then(t => document.head.insertAdjacentHTML("beforeend", t))
+  .catch(e => console.error("ek_head yüklenemedi", e));
+</script>
+</head>
+
+<body>
+
+<!-- header.html -->
+<div id="site-header"></div>
+
+<main class="container my-4">
+<p>Dijital İçerik Üretimi Nedir?</p><p>Günümüz dijital dünyasında içerik üretimi, sadece metin yazmak veya görsel paylaşmakla sınırlı değildir. <strong>Dijital içerik üretimi</strong> (<a href="https://bandanee.github.io/root/dijital-icerik" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik</a>), web siteleri, bloglar, sosyal medya, video platformları ve interaktif uygulamalar için <strong>stratejik ve üretime odaklı</strong> içerik geliştirmeyi kapsar.</p><p>bandanee, bu alanda kullanıcılara <strong>teorik bilgilerden pratiğe geçiş</strong>i sağlayan kapsamlı bir eğitim deneyimi sunar. Kullanıcılar, <strong>metin içerikleri, video, animasyon, infografik, podcast ve multimedya projeleri</strong> oluşturmayı öğrenirler (<a href="https://bandanee.github.io/root/dijital-icerik" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik</a>).</p><p>Bu modül, <strong>SEO optimizasyonu</strong>, <strong>anahtar kelime analizi</strong>, <strong>içerik planlama</strong>, <strong>başlık ve meta açıklama yazımı</strong>, <strong>medya optimizasyonu</strong> ve <strong>performans ölçümü</strong> gibi teknik detayları içerir. Kullanıcılar, içeriklerini sadece üretmekle kalmaz; aynı zamanda <strong>erişim ve etkileşim verilerini analiz ederek geliştirme</strong> becerisi kazanır.</p><p><strong>Blog ve web içerikleri</strong> (<a href="https://bandanee.github.io/root/dijital-icerik/blog" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik/blog</a>) kısmında, kullanıcılar modern <strong>HTML ve CSS standartlarını</strong> öğrenerek, interaktif ve responsive içerikler oluşturur. Ayrıca <strong>WebGL ve Canvas tabanlı görsel öğeler</strong>, infografikler ve animasyonlarla zenginleştirilmiş içerikler geliştirebilirler.</p><p><strong>Video ve multimedya üretimi</strong> (<a href="https://bandanee.github.io/root/dijital-icerik/video" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik/video</a>) alanında, kullanıcılar <strong>kurgu, montaj, ses tasarımı ve renk düzeltme</strong> gibi profesyonel teknikleri öğrenir. Aynı zamanda <strong>YouTube, Vimeo ve sosyal medya platformları</strong> için optimize edilmiş içerikler üretirler.</p><p><strong>Etkileşimli içerik ve uygulamalar</strong> (<a href="https://bandanee.github.io/root/dijital-icerik/etkilesimli" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik/etkilesimli</a>) bölümünde ise, kullanıcılar <strong>quizler, interaktif eğitim materyalleri ve oyunlaştırılmış projeler</strong> geliştirmeyi öğrenir. Burada <strong>JavaScript, API entegrasyonları ve animasyon kütüphaneleri</strong> kullanılarak gerçek dünya projeleri oluşturulur.</p><p>Bandanee’nin Dijital İçerik Üretimi modülü, kullanıcıların <strong>yaratıcılığını teknik bilgi ile birleştirerek üretime dönüştürmesini</strong> hedefler. Tüm öğrenme süreci, <strong>projeler ve örnekler</strong> ile desteklenir; kullanıcılar, kendi portföylerini oluşturarak profesyonel dünyaya hazır hale gelir.</p><p>Daha fazla bilgi ve güncel içeriklere erişim için resmi sayfayı ziyaret edebilirsiniz: <a href="https://bandanee.github.io/root/dijital-icerik" rel="noopener noreferrer" target="_blank">https://bandanee.github.io/root/dijital-icerik</a>.</p>
+</main>
+
+<!-- footer.html -->
+<div id="site-footer"></div>
+
+<script>
+fetch("https://bandanee.github.io/root/import/header.html")
+  .then(r => r.text())
+  .then(t => document.getElementById("site-header").innerHTML = t)
+  .catch(e => console.error("header yüklenemedi", e));
+
+fetch("https://bandanee.github.io/root/import/footer.html")
+  .then(r => r.text())
+  .then(t => document.getElementById("site-footer").innerHTML = t)
+  .catch(e => console.error("footer yüklenemedi", e));
+</script>
+
+</body>
+</html>
