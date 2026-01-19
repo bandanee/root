@@ -3,86 +3,121 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       referrerpolicy="no-referrer">
 
-<header class="border-bottom mb-3">
-  <div class="container py-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
+<header class="border-bottom">
+  <div class="container py-3 d-flex align-items-center justify-content-between">
 
-    <!-- Logo / Başlık -->
-    <a href="https://bandanee.github.io/personal-awareness-lab/" 
-       class="text-decoration-none fw-bold fs-4 text-dark">
-      bandanee
-    </a>
+    <!-- Sol: Logo + Sistem Menüsü -->
+    <div class="d-flex align-items-center gap-3">
+      <a href="/personal-awareness-lab/"
+         class="text-decoration-none fw-bold fs-4 text-dark">
+        bandanee
+      </a>
 
-    <!-- Sosyal Linkler -->
-    <div class="mt-3 mt-md-0 d-flex gap-3">
+      <!-- Offcanvas Toggle -->
+      <button class="btn btn-outline-secondary btn-sm"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#categoryOffcanvas"
+              aria-controls="categoryOffcanvas"
+              title="Kurs Kategorileri">
+        <i class="fas fa-layer-group me-1"></i>
+        <span class="d-none d-md-inline">Kategoriler</span>
+      </button>
+    </div>
+
+    <!-- Orta: Ana Navigasyon -->
+    <nav class="d-none d-md-block">
+      <ul class="nav gap-3 small">
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/personal-awareness-lab/nedir">Nedir?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/personal-awareness-lab/nasil-isler">Nasıl İşler?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/personal-awareness-lab/neden">Neden?</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-dark" href="/personal-awareness-lab/sistem">Sistem</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fw-semibold text-primary" href="/personal-awareness-lab/basla">
+            Başla
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Sağ: Sosyal -->
+    <div class="d-flex gap-3 fs-5">
       <a href="https://www.youtube.com/@Ki%C5%9FiselGeli%C5%9Fim-Video-Pdf-img"
-         target="_blank" class="text-danger fs-5" title="YouTube">
+         target="_blank" class="text-danger" title="YouTube">
         <i class="fab fa-youtube"></i>
       </a>
-
       <a href="https://www.udemy.com/user/okan-kaplan-7"
-         target="_blank" class="text-dark fs-5" title="Udemy">
+         target="_blank" class="text-dark" title="Udemy">
         <i class="fas fa-graduation-cap"></i>
       </a>
-
       <a href="https://shopier.com/banddes"
-         target="_blank" class="text-success fs-5" title="Mağaza">
+         target="_blank" class="text-success" title="Mağaza">
         <i class="fas fa-store"></i>
       </a>
-
       <a href="https://linkedin.com/in/canvasor"
-         target="_blank" class="text-primary fs-5" title="LinkedIn">
+         target="_blank" class="text-primary" title="LinkedIn">
         <i class="fab fa-linkedin"></i>
       </a>
-
       <a href="https://kisisel-gelisim-video-pdfders-imgpack.blogspot.com"
-         target="_blank" class="text-warning fs-5" title="Blog">
+         target="_blank" class="text-warning" title="Blog">
         <i class="fab fa-blogger"></i>
       </a>
     </div>
+
   </div>
 </header>
+<div class="offcanvas offcanvas-start"
+     tabindex="-1"
+     id="categoryOffcanvas"
+     aria-labelledby="categoryOffcanvasLabel">
 
-<!-- Alt Navigasyon -->
-<nav class="border-bottom mb-4">
-  <div class="container">
-    <ul class="nav justify-content-center gap-3 py-2 small">
-
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/personal-awareness-lab/nedir">
-          Nedir?
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/personal-awareness-lab/nasil-isler">
-          Nasıl İşler?
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/personal-awareness-lab/neden">
-          Neden Bu Sistem?
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/personal-awareness-lab/kategoriler">
-          Kurs Kategorileri
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link text-dark" href="/personal-awareness-lab/sistem">
-          Sistem Yapısı
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link fw-semibold text-primary" href="/personal-awareness-lab/basla">
-          Başla
-        </a>
-      </li>
-
-    </ul>
+  <div class="offcanvas-header border-bottom">
+    <h5 class="offcanvas-title fw-semibold"
+        id="categoryOffcanvasLabel">
+      Kurs Kategorileri
+    </h5>
+    <button type="button" class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
   </div>
-</nav>
+
+  <div class="offcanvas-body small">
+
+    <nav class="nav flex-column gap-2">
+
+      <span class="text-muted fw-semibold mt-2">Farkındalık Alanları</span>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/emotional-awareness/">🧠 Duygusal Farkındalık</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/somatic-awareness/">🫀 Bedensel Farkındalık</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/cognitive-observation/">💭 Düşünce Gözlemi</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/behavioral-awareness/">🔁 Davranış Farkındalığı</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/relational-awareness/">👥 İlişkisel Farkındalık</a>
+
+      <hr>
+
+      <span class="text-muted fw-semibold">Derinleşme</span>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/time-attention-awareness/">⏳ Zaman & Dikkat</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/emotional-tolerance/">🧱 Duygusal Dayanıklılık</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/self-concept-observation/">🪞 Kimlik & Öz Algı</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/values-meaning/">🎯 Değerler & Anlam</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/meta-awareness/">🔍 Meta-Farkındalık</a>
+
+      <hr>
+
+      <span class="text-muted fw-semibold">Uygulama & Sistem</span>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/literary-observation/">📚 Edebiyat & Karakter</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/digital-journaling/">💾 Dijital Günlük</a>
+      <a class="nav-link" href="/personal-awareness-lab/kategoriler/process-awareness/">🧩 Sistem & Süreklilik</a>
+
+    </nav>
+
+  </div>
+</div>
+ 
