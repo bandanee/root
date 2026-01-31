@@ -1,4 +1,110 @@
 <style>
+ 
+
+  
+
+  table.dataTable thead {
+    background-color: #3b82f6;
+    color: #fff;
+  }
+
+  table.dataTable tbody tr:hover {
+    background-color: #dbeafe;
+  }
+
+  table.dataTable td a {
+    color: #1d4ed8;
+    text-decoration: none;
+  }
+
+  table.dataTable td a:hover {
+    text-decoration: underline;
+  }
+ 
+
+ 
+</style>
+  <table id="archiveTable" class="display" style="width:100%">
+    <thead>
+      <tr>
+        <th>Klasör</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Keywords</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dinamik olarak JS ile doldurulacak -->
+    </tbody>
+  </table>
+<!-- jQuery ve DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script>
+const owner = "bandanee";
+const repo = "DailyMind";
+const path = "arsiv";
+
+// Örnek metadata, istersen GitHub üzerinden README.md çekip parse edebilirsin
+function generateMeta(dirName) {
+  return {
+    title: dirName.replace(/[-_]/g, ' '),
+    description: `DailyMind arşiv klasörü: ${dirName}`,
+    keywords: `DailyMind, ${dirName}, Arşiv, Klasör`
+  };
+}
+
+async function fetchFolders() {
+  try {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
+    const items = await res.json();
+    return items.filter(item => item.type === "dir");
+  } catch(e) {
+    console.error(e);
+    return [];
+  }
+}
+
+async function init() {
+  const folders = await fetchFolders();
+  const tbody = $("#archiveTable tbody");
+
+  folders.forEach(dir => {
+    const meta = generateMeta(dir.name);
+
+    const row = `
+      <tr>
+        <td><a href="https://${owner}.github.io/${repo}/${path}/${dir.name}/index.html" target="_blank" rel="noopener">${dir.name}</a></td>
+        <td>${meta.title}</td>
+        <td>${meta.description}</td>
+        <td>${meta.keywords}</td>
+      </tr>
+    `;
+    tbody.append(row);
+  });
+
+  $('#archiveTable').DataTable({
+    responsive: true,
+    pageLength: 10,
+    lengthMenu: [5,10,20,50],
+    language: {
+      search: "Ara:",
+      lengthMenu: "Sayfa başına _MENU_ kayıt",
+      info: "_TOTAL_ klasörden _START_ - _END_ gösteriliyor",
+      paginate: {
+        previous: "Önceki",
+        next: "Sonraki"
+      },
+      zeroRecords: "Eşleşen kayıt bulunamadı"
+    }
+  });
+}
+
+init();
+</script>
+
+<style>
   
 .footer-github {
   border-top: 1px solid #e5e7eb;
