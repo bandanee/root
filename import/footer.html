@@ -37,6 +37,30 @@
 .footer-links a:hover {
   color: #0969da; /* GitHub blue */
 }
+  #scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #24292f; /* GitHub tonu */
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,.2);
+  transition: all .3s ease;
+  z-index: 999;
+}
+
+#scrollTopBtn:hover {
+  background: #000;
+  transform: translateY(-4px);
+}
 </style>
 <div class="col-12 col-lg-12 mx-auto">
 <section class="col-12 col-lg-9 mx-auto">
@@ -78,4 +102,26 @@
       </div>
     </div>
   </div>
+  <!-- Scroll To Top Button -->
+<button id="scrollTopBtn" aria-label="Yukarı Çık">
+  <i class="fas fa-chevron-up"></i>
+</button>
 </footer>
+<script>
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollTopBtn.style.display = "flex";
+  } else {
+    scrollTopBtn.style.display = "none";
+  }
+});
+
+scrollTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+</script>
