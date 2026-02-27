@@ -1,1 +1,92 @@
 
+<script>
+(async () => {
+  // 1️⃣ Ortak head fetch
+  try {
+    const r = await fetch("https://raw.githubusercontent.com/bandanee/root/main/import/head.html");
+    const t = await r.text();
+    document.head.insertAdjacentHTML("beforeend", t);
+  } catch(e) { console.error("head.html yüklenemedi", e); }
+
+  // 2️⃣ Sayfa içeriklerinden meta oluştur
+  const mainContent = document.querySelector('main');
+  if (!mainContent) return;
+
+  // Title → varsa h1, yoksa document.title
+  const h1 = mainContent.querySelector('h1,h2,h3');
+  const pageTitle = h1 ? h1.textContent.trim() : document.title;
+
+  // Description → ilk 150-160 karakter
+  const plainText = mainContent.textContent.replace(/\s+/g,' ').trim();
+  const pageDescription = plainText.substring(0,160);
+
+  // Keywords → basit: sık kullanılan kelimeler (50 karakter limit)
+  const wordCounts = {};
+  plainText.split(/\W+/).forEach(w=>{
+    w=w.toLowerCase();
+    if(w.length>3) wordCounts[w]=(wordCounts[w]||0)+1;
+  });
+  const sortedWords = Object.entries(wordCounts)
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,15)
+    .map(e=>e[0]);
+  const pageKeywords = sortedWords.join(', ');
+
+  const canonical = window.location.href;
+
+  // 3️⃣ Head'e inject
+  document.title = pageTitle;
+
+  const metaDescription = document.createElement('meta');
+  metaDescription.name = "description";
+  metaDescription.content = pageDescription;
+  document.head.appendChild(metaDescription);
+
+  const metaKeywords = document.createElement('meta');
+  metaKeywords.name = "keywords";
+  metaKeywords.content = pageKeywords;
+  document.head.appendChild(metaKeywords);
+
+  const linkCanonical = document.createElement('link');
+  linkCanonical.rel = "canonical";
+  linkCanonical.href = canonical;
+  document.head.appendChild(linkCanonical);
+
+  // Open Graph
+  const ogTitle = document.createElement('meta');
+  ogTitle.setAttribute('property','og:title'); ogTitle.content = pageTitle; document.head.appendChild(ogTitle);
+
+  const ogDesc = document.createElement('meta');
+  ogDesc.setAttribute('property','og:description'); ogDesc.content = pageDescription; document.head.appendChild(ogDesc);
+
+  const ogUrl = document.createElement('meta');
+  ogUrl.setAttribute('property','og:url'); ogUrl.content = canonical; document.head.appendChild(ogUrl);
+
+  const ogType = document.createElement('meta');
+  ogType.setAttribute('property','og:type'); ogType.content = 'website'; document.head.appendChild(ogType);
+
+  // Twitter Card
+  const twCard = document.createElement('meta');
+  twCard.name = 'twitter:card'; twCard.content='summary_large_image'; document.head.appendChild(twCard);
+
+  const twTitle = document.createElement('meta');
+  twTitle.name='twitter:title'; twTitle.content=pageTitle; document.head.appendChild(twTitle);
+
+  const twDesc = document.createElement('meta');
+  twDesc.name='twitter:description'; twDesc.content=pageDescription; document.head.appendChild(twDesc);
+
+  // JSON-LD
+  const jsonLD = {
+    "@context":"https://schema.org/",
+    "@type":"WebPage",
+    "name": pageTitle,
+    "description": pageDescription,
+    "url": canonical
+  };
+  const scriptJsonLD = document.createElement('script');
+  scriptJsonLD.type="application/ld+json";
+  scriptJsonLD.textContent = JSON.stringify(jsonLD);
+  document.head.appendChild(scriptJsonLD);
+
+})();
+</script>
