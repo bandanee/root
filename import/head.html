@@ -1,18 +1,13 @@
 
 <script>
 (async () => {
-  try {
-    const r = await fetch("https://raw.githubusercontent.com/bandanee/root/main/import/head.html");
-    const t = await r.text();
-    document.head.insertAdjacentHTML("beforeend", t);
-  } catch(e) { console.error("head.html yüklenemedi", e); }
-
-  // Dinamik meta üretimi
   const mainContent = document.querySelector('main') || document.body;
   const h1 = mainContent.querySelector('h1,h2,h3');
   const pageTitle = h1 ? h1.textContent.trim() : document.title;
+
   const plainText = mainContent.textContent.replace(/\s+/g,' ').trim();
   const pageDescription = plainText.substring(0,160);
+
   const wordCounts = {};
   plainText.split(/\W+/).forEach(w=>{
     w=w.toLowerCase();
@@ -23,6 +18,7 @@
     .slice(0,15)
     .map(e=>e[0]);
   const pageKeywords = sortedWords.join(', ');
+
   const canonical = window.location.href;
 
   document.title = pageTitle;
@@ -42,7 +38,6 @@
   linkCanonical.href = canonical;
   document.head.appendChild(linkCanonical);
 
-  // Open Graph
   const ogProps = {title: pageTitle, description: pageDescription, url: canonical, type:'website'};
   Object.keys(ogProps).forEach(k=>{
     const meta = document.createElement('meta');
@@ -51,7 +46,6 @@
     document.head.appendChild(meta);
   });
 
-  // Twitter Card
   const twProps = {card:'summary_large_image', title: pageTitle, description: pageDescription};
   Object.keys(twProps).forEach(k=>{
     const meta = document.createElement('meta');
@@ -60,7 +54,6 @@
     document.head.appendChild(meta);
   });
 
-  // JSON-LD
   const jsonLD = {
     "@context":"https://schema.org/",
     "@type":"WebPage",
@@ -72,6 +65,5 @@
   scriptJsonLD.type="application/ld+json";
   scriptJsonLD.textContent = JSON.stringify(jsonLD);
   document.head.appendChild(scriptJsonLD);
-
 })();
 </script>
