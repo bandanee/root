@@ -1,54 +1,66 @@
 
-<!-- Google tag (gtag.js) -->
+
+<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QNMHVBXRMD"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-QNMHVBXRMD');
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-QNMHVBXRMD');
 </script>
+
+<!-- YouTube otomatik title, meta, thumbnail ve schema -->
 <script>
-(function(){
-  // Sayfadaki YouTube iframe'lerini tarayalım
+document.addEventListener('DOMContentLoaded', () => {
   const iframes = document.querySelectorAll('iframe[src*="youtube.com/embed"]');
-
+  
   iframes.forEach(iframe => {
-    const url = new URL(iframe.src);
-    const videoId = url.pathname.split('/embed/')[1].split('?')[0];
+    try {
+      const url = new URL(iframe.src);
+      const videoId = url.pathname.split('/embed/')[1].split('?')[0];
 
-    // oEmbed ile video bilgilerini al
-    fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
+      fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
       .then(res => res.json())
       .then(data => {
-        // Başlık otomatik güncelle
-        if(document.title === "") document.title = data.title + " | Bandanee";
-
+        // Başlık
+        if(!document.title || document.title.trim() === "") document.title = data.title + " | Bandanee";
         const h1 = document.querySelector("h1");
-        if(h1 && h1.textContent.trim() === "") h1.textContent = data.title;
+        if(h1 && (!h1.textContent || h1.textContent.trim() === "")) h1.textContent = data.title;
 
-        // Meta güncelle
+        // Meta description
         const descMeta = document.querySelector('meta[name="description"]');
-        if(descMeta && descMeta.getAttribute('content').trim() === "")
+        if(descMeta && (!descMeta.getAttribute('content') || descMeta.getAttribute('content').trim() === ""))
           descMeta.setAttribute("content", data.title + " hakkında bilimsel kişisel gelişim ve zihinsel reset içerikleri.");
 
+        // Open Graph
         const ogTitle = document.querySelector('meta[property="og:title"]');
-        if(ogTitle && ogTitle.getAttribute("content").trim() === "")
+        if(ogTitle && (!ogTitle.getAttribute("content") || ogTitle.getAttribute("content").trim() === ""))
           ogTitle.setAttribute("content", data.title);
 
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if(ogDesc && (!ogDesc.getAttribute("content") || ogDesc.getAttribute("content").trim() === ""))
+          ogDesc.setAttribute("content", data.title + " hakkında bilimsel kişisel gelişim ve zihinsel reset içerikleri.");
+
+        // Twitter
         const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-        if(twitterTitle && twitterTitle.getAttribute("content").trim() === "")
+        if(twitterTitle && (!twitterTitle.getAttribute("content") || twitterTitle.getAttribute("content").trim() === ""))
           twitterTitle.setAttribute("content", data.title);
 
+        const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+        if(twitterDesc && (!twitterDesc.getAttribute("content") || twitterDesc.getAttribute("content").trim() === ""))
+          twitterDesc.setAttribute("content", data.title + " hakkında bilimsel kişisel gelişim ve zihinsel reset içerikleri.");
+
+        // Thumbnail
         const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
         const ogImage = document.querySelector('meta[property="og:image"]');
         const twitterImage = document.querySelector('meta[name="twitter:image"]');
-        if(ogImage) ogImage.setAttribute("content", thumbnail);
-        if(twitterImage) twitterImage.setAttribute("content", thumbnail);
+        if(ogImage && (!ogImage.getAttribute("content") || ogImage.getAttribute("content").trim() === ""))
+          ogImage.setAttribute("content", thumbnail);
+        if(twitterImage && (!twitterImage.getAttribute("content") || twitterImage.getAttribute("content").trim() === ""))
+          twitterImage.setAttribute("content", thumbnail);
 
         // Video Schema
-        const existingSchema = document.querySelector('script[type="application/ld+json"]');
-        if(!existingSchema){
+        if(!document.querySelector('script[type="application/ld+json"]')){
           const schema = document.createElement('script');
           schema.type = 'application/ld+json';
           schema.text = JSON.stringify({
@@ -67,9 +79,9 @@
           });
           document.head.appendChild(schema);
         }
-
       })
       .catch(err => console.error("YouTube meta çekilemedi:", err));
+    } catch(e) { console.error("iframe URL hatası", e); }
   });
-})();
+});
 </script>
