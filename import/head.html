@@ -8,3 +8,68 @@
 
   gtag('config', 'G-QNMHVBXRMD');
 </script>
+<script>
+(function(){
+  // Sayfadaki YouTube iframe'lerini tarayalım
+  const iframes = document.querySelectorAll('iframe[src*="youtube.com/embed"]');
+
+  iframes.forEach(iframe => {
+    const url = new URL(iframe.src);
+    const videoId = url.pathname.split('/embed/')[1].split('?')[0];
+
+    // oEmbed ile video bilgilerini al
+    fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
+      .then(res => res.json())
+      .then(data => {
+        // Başlık otomatik güncelle
+        if(document.title === "") document.title = data.title + " | Bandanee";
+
+        const h1 = document.querySelector("h1");
+        if(h1 && h1.textContent.trim() === "") h1.textContent = data.title;
+
+        // Meta güncelle
+        const descMeta = document.querySelector('meta[name="description"]');
+        if(descMeta && descMeta.getAttribute('content').trim() === "")
+          descMeta.setAttribute("content", data.title + " hakkında bilimsel kişisel gelişim ve zihinsel reset içerikleri.");
+
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if(ogTitle && ogTitle.getAttribute("content").trim() === "")
+          ogTitle.setAttribute("content", data.title);
+
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if(twitterTitle && twitterTitle.getAttribute("content").trim() === "")
+          twitterTitle.setAttribute("content", data.title);
+
+        const thumbnail = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        const ogImage = document.querySelector('meta[property="og:image"]');
+        const twitterImage = document.querySelector('meta[name="twitter:image"]');
+        if(ogImage) ogImage.setAttribute("content", thumbnail);
+        if(twitterImage) twitterImage.setAttribute("content", thumbnail);
+
+        // Video Schema
+        const existingSchema = document.querySelector('script[type="application/ld+json"]');
+        if(!existingSchema){
+          const schema = document.createElement('script');
+          schema.type = 'application/ld+json';
+          schema.text = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": data.title,
+            "description": data.title + " hakkında bilimsel kişisel gelişim ve zihinsel reset içerikleri.",
+            "thumbnailUrl": thumbnail,
+            "uploadDate": new Date().toISOString().split('T')[0],
+            "embedUrl": iframe.src,
+            "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+            "publisher": {
+              "@type": "Organization",
+              "name": "Bandanee"
+            }
+          });
+          document.head.appendChild(schema);
+        }
+
+      })
+      .catch(err => console.error("YouTube meta çekilemedi:", err));
+  });
+})();
+</script>
